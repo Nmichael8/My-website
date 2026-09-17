@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Morgan | Creative Developer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+        :root {
+            --ink: #17221f;
+            --muted: #63716c;
+            --paper: #f4f0e8;
+            --coral: #f26b4f;
+            --lime: #d8e86b;
+            --line: rgba(23, 34, 31, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+        }
+
+        body::before {
+            background: var(--coral);
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+            content: '';
+            height: 19rem;
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 19rem;
+            z-index: -1;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+        }
+
+        .mono {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        #website-content[hidden] {
+            display: none;
+        }
+
+        .access-page {
+            align-items: center;
+            display: flex;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .access-card {
+            background: var(--ink);
+            color: var(--paper);
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            margin: auto;
+            max-width: 72rem;
+            min-height: 34rem;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .access-intro {
+            background: var(--coral);
+            color: var(--ink);
+            padding: clamp(2rem, 6vw, 5.5rem);
+            position: relative;
+        }
+
+        .access-intro::after {
+            border: 1px solid var(--ink);
+            border-radius: 50%;
+            content: '';
+            height: 13rem;
+            position: absolute;
+            right: -5rem;
+            top: 6rem;
+            width: 13rem;
+        }
+
+        .access-intro h1 {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            letter-spacing: -0.08em;
+            line-height: 0.86;
+            margin: 3rem 0 1.5rem;
+            max-width: 8ch;
+        }
+
+        .access-intro p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 27rem;
+        }
+
+        .access-form {
+            align-self: center;
+            padding: clamp(2rem, 6vw, 5rem);
+            position: relative;
+            z-index: 1;
+        }
+
+        .access-form h2 {
+            font-size: 2rem;
+            letter-spacing: -0.05em;
+            margin: 0 0 0.75rem;
+        }
+
+        .access-form p {
+            color: #b5c0ba;
+            line-height: 1.6;
+            margin: 0 0 2rem;
+        }
+
+        .access-form label {
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .input-row {
+            display: flex;
+            border-bottom: 1px solid #75847d;
+            gap: 0.75rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .input-row input {
+            background: transparent;
+            border: 0;
+            color: var(--paper);
+            min-width: 0;
+            outline: 0;
+            padding: 0.5rem 0;
+            width: 100%;
+        }
+
+        .input-row button {
+            background: var(--lime);
+            color: var(--ink);
+            padding: 0.65rem 1rem;
+        }
+
+        #error-message {
+            color: #ffae9d;
+            margin-top: 1rem;
+        }
+
+        .portfolio {
+            margin: auto;
+            max-width: 78rem;
+            padding: 1.5rem clamp(1.25rem, 5vw, 4rem) 5rem;
+        }
+
+        .site-header {
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0 1.25rem;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .site-header a {
+            color: var(--ink);
+            margin-left: 1.5rem;
+            text-decoration: none;
+        }
+
+        .hero {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1.2fr 0.8fr;
+            padding: clamp(4rem, 10vw, 9rem) 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            letter-spacing: -0.09em;
+            line-height: 0.86;
+            margin: 0;
+            max-width: 8ch;
+        }
+
+        .hero-copy {
+            align-self: end;
+            max-width: 25rem;
+        }
+
+        .hero-copy p {
+            font-size: 1.25rem;
+            line-height: 1.45;
+        }
+
+        .section-heading {
+            align-items: baseline;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-heading h2 {
+            font-size: 2rem;
+            letter-spacing: -0.05em;
+            margin: 0;
+        }
+
+        .project-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .project {
+            min-height: 19rem;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .project:nth-child(1) { background: var(--coral); }
+        .project:nth-child(2) { background: var(--lime); }
+        .project:nth-child(3) { background: #c9d5d0; }
+
+        .project h3 {
+            font-size: 1.7rem;
+            letter-spacing: -0.06em;
+            margin: 3rem 0 0.5rem;
+        }
+
+        .project p {
+            line-height: 1.5;
+            max-width: 17rem;
+        }
+
+        .project .arrow {
+            bottom: 1.25rem;
+            font-size: 1.5rem;
+            position: absolute;
+            right: 1.5rem;
+        }
+
+        .about {
+            border-bottom: 1px solid var(--line);
+            border-top: 1px solid var(--line);
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 0.8fr 1.2fr;
+            margin-top: 6rem;
+            padding: 2rem 0;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            letter-spacing: -0.07em;
+            margin: 0;
+        }
+
+        .about p {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            margin: 0;
+            max-width: 42rem;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        @media (max-width: 700px) {
+            .access-page { padding: 0; }
+            .access-card { display: block; min-height: 100vh; }
+            .access-intro { min-height: 50vh; }
+            .access-intro h1 { margin-top: 4rem; }
+            .hero, .about { grid-template-columns: 1fr; }
+            .hero { padding: 5rem 0; }
+            .project-grid { grid-template-columns: 1fr; }
+            .site-header a { margin-left: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section id="password-screen" class="access-page" aria-labelledby="password-title">
+            <div class="access-card">
+                <div class="access-intro">
+                    <span class="mono">Portfolio / 2026</span>
+                    <h1>Make it matter.</h1>
+                    <p>A private portfolio by Alex Morgan, a creative developer building useful digital experiences with character.</p>
+                </div>
+                <form id="password-form" class="access-form">
+                    <span class="mono">Private viewing room</span>
+                    <h2 id="password-title">Welcome in.</h2>
+                    <p>Enter the passcode shared with you to explore selected work, experiments, and ideas.</p>
+                    <label class="mono" for="password">Passcode</label>
+                    <div class="input-row">
+                        <input id="password" name="password" type="password" placeholder="••••••••" required>
+                        <button type="submit" aria-label="Access portfolio">→</button>
+                    </div>
+                    <p id="error-message" role="alert" hidden>That passcode did not work. Try again.</p>
+                </form>
+            </div>
+        </section>
+
+        <section id="website-content" class="portfolio" aria-labelledby="welcome-title" hidden>
+            <header class="site-header">
+                <div class="logo">AM<span class="mono"> / studio</span></div>
+                <nav class="mono" aria-label="Main navigation">
+                    <a href="#work">Work</a>
+                    <a href="#about">About</a>
+                </nav>
+            </header>
+
+            <section class="hero">
+                <h1 id="welcome-title">Digital work with a pulse.</h1>
+                <div class="hero-copy">
+                    <span class="mono">Alex Morgan / Creative developer</span>
+                    <p>I design and build expressive websites for people and brands with something real to say.</p>
+                </div>
+            </section>
+
+            <section id="work" aria-labelledby="work-title">
+                <div class="section-heading">
+                    <h2 id="work-title">Selected work</h2>
+                    <span class="mono">01 — 03</span>
+                </div>
+                <div class="project-grid">
+                    <article class="project">
+                        <span class="mono">Brand / Web</span>
+                        <h3>Northstar Journal</h3>
+                        <p>A thoughtful editorial platform for stories about the changing outdoors.</p>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </article>
+                    <article class="project">
+                        <span class="mono">Product / UX</span>
+                        <h3>Common Ground</h3>
+                        <p>A calmer way for neighborhoods to share resources and local knowledge.</p>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </article>
+                    <article class="project">
+                        <span class="mono">Interactive / Art</span>
+                        <h3>Signal / Noise</h3>
+                        <p>An interactive sound experiment exploring the texture of everyday life.</p>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </article>
+                </div>
+            </section>
+
+            <section id="about" class="about" aria-labelledby="about-title">
+                <h2 id="about-title">A little context.</h2>
+                <p>I work across strategy, design, and front-end code. The best projects feel clear at first glance, then reward a closer look. I am currently available for select collaborations.</p>
+            </section>
+
+            <footer class="footer">
+                <span class="mono">Available for good work</span>
+                <a href="mailto:hello@example.com">Let's talk ↗</a>
+            </footer>
+        </section>
+    </main>
+
+    <script>
+        const passwordForm = document.querySelector('#password-form');
+        const passwordInput = document.querySelector('#password');
+        const passwordScreen = document.querySelector('#password-screen');
+        const websiteContent = document.querySelector('#website-content');
+        const errorMessage = document.querySelector('#error-message');
+        const websitePassword = 'mywebsite123';
+
+        passwordForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            if (passwordInput.value === websitePassword) {
+                passwordScreen.hidden = true;
+                websiteContent.hidden = false;
+                errorMessage.hidden = true;
+                return;
+            }
+
+            errorMessage.hidden = false;
+            passwordInput.select();
+        });
+    </script>
+</body>
+</html>
