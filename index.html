@@ -310,7 +310,7 @@
 </head>
 <body>
     <main>
-        <section id="password-screen" class="access-page" aria-labelledby="password-title">
+        <section class="access-page" aria-labelledby="password-title">
             <div class="access-card">
                 <div class="access-intro">
                     <span class="mono">Portfolio / 2026</span>
@@ -331,67 +331,11 @@
             </div>
         </section>
 
-        <section id="website-content" class="portfolio" aria-labelledby="welcome-title" hidden>
-            <header class="site-header">
-                <div class="logo">AM<span class="mono"> / studio</span></div>
-                <nav class="mono" aria-label="Main navigation">
-                    <a href="#work">Work</a>
-                    <a href="#about">About</a>
-                </nav>
-            </header>
-
-            <section class="hero">
-                <h1 id="welcome-title">Digital work with a pulse.</h1>
-                <div class="hero-copy">
-                    <span class="mono">Alex Morgan / Creative developer</span>
-                    <p>I design and build expressive websites for people and brands with something real to say.</p>
-                </div>
-            </section>
-
-            <section id="work" aria-labelledby="work-title">
-                <div class="section-heading">
-                    <h2 id="work-title">Selected work</h2>
-                    <span class="mono">01 — 03</span>
-                </div>
-                <div class="project-grid">
-                    <article class="project">
-                        <span class="mono">Brand / Web</span>
-                        <h3>Northstar Journal</h3>
-                        <p>A thoughtful editorial platform for stories about the changing outdoors.</p>
-                        <span class="arrow" aria-hidden="true">↗</span>
-                    </article>
-                    <article class="project">
-                        <span class="mono">Product / UX</span>
-                        <h3>Common Ground</h3>
-                        <p>A calmer way for neighborhoods to share resources and local knowledge.</p>
-                        <span class="arrow" aria-hidden="true">↗</span>
-                    </article>
-                    <article class="project">
-                        <span class="mono">Interactive / Art</span>
-                        <h3>Signal / Noise</h3>
-                        <p>An interactive sound experiment exploring the texture of everyday life.</p>
-                        <span class="arrow" aria-hidden="true">↗</span>
-                    </article>
-                </div>
-            </section>
-
-            <section id="about" class="about" aria-labelledby="about-title">
-                <h2 id="about-title">A little context.</h2>
-                <p>I work across strategy, design, and front-end code. The best projects feel clear at first glance, then reward a closer look. I am currently available for select collaborations.</p>
-            </section>
-
-            <footer class="footer">
-                <span class="mono">Available for good work</span>
-                <a href="mailto:hello@example.com">Let's talk ↗</a>
-            </footer>
-        </section>
     </main>
 
     <script>
         const passwordForm = document.querySelector('#password-form');
         const passwordInput = document.querySelector('#password');
-        const passwordScreen = document.querySelector('#password-screen');
-        const websiteContent = document.querySelector('#website-content');
         const errorMessage = document.querySelector('#error-message');
         const websitePassword = 'mywebsite123';
 
@@ -399,9 +343,7 @@
             event.preventDefault();
 
             if (passwordInput.value === websitePassword) {
-                passwordScreen.hidden = true;
-                websiteContent.hidden = false;
-                errorMessage.hidden = true;
+                window.location.href = 'portfolio.html';
                 return;
             }
 
