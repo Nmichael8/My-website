@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Morgan | Creative Developer</title>
+    <title>Signal Archive | Private Access</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
         :root {
-            --ink: #17221f;
-            --muted: #63716c;
-            --paper: #f4f0e8;
-            --coral: #f26b4f;
-            --lime: #d8e86b;
-            --line: rgba(23, 34, 31, 0.18);
+            --ink: #080b12;
+            --muted: #8d98a8;
+            --paper: #e9eef2;
+            --coral: #ff704d;
+            --lime: #c9ff72;
+            --line: rgba(233, 238, 242, 0.16);
         }
 
         * {
@@ -21,21 +21,34 @@
         }
 
         body {
-            background: var(--paper);
-            color: var(--ink);
+            background: var(--ink);
+            color: var(--paper);
             font-family: 'Space Grotesk', sans-serif;
             margin: 0;
+            min-height: 100vh;
         }
 
         body::before {
-            background: var(--coral);
-            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+            background-image: linear-gradient(rgba(201, 255, 114, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 255, 114, 0.05) 1px, transparent 1px);
+            background-size: 4rem 4rem;
             content: '';
-            height: 19rem;
+            height: 100%;
             position: fixed;
-            right: 0;
             top: 0;
-            width: 19rem;
+            width: 100%;
+            z-index: -1;
+        }
+
+        body::after {
+            background: var(--coral);
+            border-radius: 50%;
+            box-shadow: 0 0 100px rgba(255, 112, 77, 0.35);
+            content: '';
+            height: 18rem;
+            position: fixed;
+            right: -8rem;
+            top: -8rem;
+            width: 18rem;
             z-index: -1;
         }
 
@@ -64,30 +77,53 @@
             align-items: center;
             display: flex;
             min-height: 100vh;
-            padding: 2rem;
+            overflow: hidden;
+            padding: clamp(1rem, 4vw, 4rem);
         }
 
         .access-card {
-            background: var(--ink);
+            background: rgba(8, 11, 18, 0.84);
+            border: 1px solid var(--line);
             color: var(--paper);
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1fr 1fr;
             margin: auto;
-            max-width: 72rem;
-            min-height: 34rem;
+            max-width: 68rem;
+            min-height: 38rem;
             overflow: hidden;
+            position: relative;
             width: 100%;
         }
 
+        .access-card::before,
+        .access-card::after {
+            border: 1px solid rgba(201, 255, 114, 0.25);
+            border-radius: 50%;
+            content: '';
+            height: 27rem;
+            left: 36%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 27rem;
+        }
+
+        .access-card::after {
+            border-color: rgba(255, 112, 77, 0.32);
+            height: 18rem;
+            width: 18rem;
+        }
+
         .access-intro {
-            background: var(--coral);
+            background: linear-gradient(145deg, rgba(255, 112, 77, 0.95), rgba(255, 112, 77, 0.7));
             color: var(--ink);
             padding: clamp(2rem, 6vw, 5.5rem);
             position: relative;
+            z-index: 1;
         }
 
         .access-intro::after {
-            border: 1px solid var(--ink);
+            border: 1px solid rgba(8, 11, 18, 0.7);
             border-radius: 50%;
             content: '';
             height: 13rem;
@@ -98,7 +134,7 @@
         }
 
         .access-intro h1 {
-            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
             letter-spacing: -0.08em;
             line-height: 0.86;
             margin: 3rem 0 1.5rem;
@@ -118,6 +154,16 @@
             z-index: 1;
         }
 
+        .access-form::before {
+            color: var(--lime);
+            content: '✦  ACCESS NODE 07';
+            display: block;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            margin-bottom: 3rem;
+        }
+
         .access-form h2 {
             font-size: 2rem;
             letter-spacing: -0.05em;
@@ -125,7 +171,7 @@
         }
 
         .access-form p {
-            color: #b5c0ba;
+            color: var(--muted);
             line-height: 1.6;
             margin: 0 0 2rem;
         }
@@ -137,9 +183,9 @@
 
         .input-row {
             display: flex;
-            border-bottom: 1px solid #75847d;
+            border: 1px solid rgba(233, 238, 242, 0.32);
             gap: 0.75rem;
-            padding-bottom: 0.5rem;
+            padding: 0.35rem 0.35rem 0.35rem 0.8rem;
         }
 
         .input-row input {
@@ -155,11 +201,13 @@
         .input-row button {
             background: var(--lime);
             color: var(--ink);
+            font-size: 1.25rem;
+            min-width: 3rem;
             padding: 0.65rem 1rem;
         }
 
         #error-message {
-            color: #ffae9d;
+            color: #ff9b83;
             margin-top: 1rem;
         }
 
@@ -313,14 +361,14 @@
         <section class="access-page" aria-labelledby="password-title">
             <div class="access-card">
                 <div class="access-intro">
-                    <span class="mono">Portfolio / 2026</span>
-                    <h1>Make it matter.</h1>
-                    <p>A private portfolio by Alex Morgan, a creative developer building useful digital experiences with character.</p>
+                    <span class="mono">Private archive / 2026</span>
+                    <h1>Enter the signal.</h1>
+                    <p>A curated portfolio of digital work, visual experiments, and ideas in progress by Alex Morgan.</p>
                 </div>
                 <form id="password-form" class="access-form">
-                    <span class="mono">Private viewing room</span>
-                    <h2 id="password-title">Welcome in.</h2>
-                    <p>Enter the passcode shared with you to explore selected work, experiments, and ideas.</p>
+                    <span class="mono">Invitation required</span>
+                    <h2 id="password-title">Unlock the archive.</h2>
+                    <p>Enter your private passcode to access the full portfolio and behind-the-scenes work.</p>
                     <label class="mono" for="password">Passcode</label>
                     <div class="input-row">
                         <input id="password" name="password" type="password" placeholder="••••••••" required>
