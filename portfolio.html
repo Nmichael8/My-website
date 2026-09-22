@@ -3,132 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORGE | Training Equipment</title>
+    <title>FORGE | Nigerian Training Equipment</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
-        :root {
-            --black: #11130f;
-            --cream: #f1eee5;
-            --orange: #ff5a1f;
-            --acid: #d9f45b;
-            --soft: #d8d6ca;
-            --muted: #72756a;
-            --line: rgba(17, 19, 15, 0.18);
-        }
-
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--cream); color: var(--black); font-family: 'Space Grotesk', sans-serif; margin: 0; }
-        a { color: inherit; }
-        button { border: 0; cursor: pointer; font: inherit; }
-        .mono { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
-        .wrap { margin: auto; max-width: 84rem; padding: 0 clamp(1.25rem, 5vw, 4rem); }
-
-        .topbar { background: var(--orange); font-size: 0.75rem; padding: 0.65rem 0; text-align: center; }
-        .site-header { align-items: center; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; padding: 1.25rem 0; }
-        .brand { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 800; letter-spacing: 0.04em; }
-        .brand span { color: var(--orange); }
-        nav { display: flex; gap: 1.5rem; }
-        nav a { font-size: 0.9rem; text-decoration: none; }
-        .cart { align-items: center; background: var(--black); color: var(--cream); display: flex; gap: 0.7rem; padding: 0.65rem 0.9rem; }
-        .cart-count { color: var(--acid); }
-
-        .hero { align-items: end; display: grid; gap: 2rem; grid-template-columns: 1.15fr 0.85fr; padding: clamp(4rem, 9vw, 8rem) 0 5rem; }
-        .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(5rem, 13vw, 12rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.78; margin: 0; max-width: 7ch; text-transform: uppercase; }
-        .hero h1 em { color: var(--orange); font-style: normal; }
-        .hero-copy { max-width: 25rem; }
-        .hero-copy p { font-size: 1.15rem; line-height: 1.5; }
-        .hero-mark { align-items: center; background: var(--acid); border-radius: 50%; display: flex; font-family: 'Barlow Condensed', sans-serif; font-size: 2.3rem; font-weight: 700; height: 10rem; justify-content: center; line-height: 0.85; margin-top: 3rem; text-align: center; transform: rotate(8deg); width: 10rem; }
-
-        .section-head { align-items: end; border-bottom: 2px solid var(--black); display: flex; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 0.8rem; }
-        .section-head h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; letter-spacing: -0.03em; margin: 0; text-transform: uppercase; }
-        .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 2rem; overflow-x: auto; }
-        .filter { background: transparent; border: 1px solid var(--line); padding: 0.6rem 0.8rem; white-space: nowrap; }
-        .filter.active, .filter:hover { background: var(--black); color: var(--cream); }
-
-        .product-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, 1fr); }
-        .product-card { background: #e4e1d7; position: relative; }
-        .product-image { aspect-ratio: 1 / 1.05; background: var(--soft); display: block; object-fit: cover; width: 100%; }
-        .product-info { padding: 1rem; }
-        .product-meta { align-items: center; display: flex; justify-content: space-between; }
-        .product-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; margin: 0.8rem 0 0.2rem; text-transform: uppercase; }
-        .product-description { color: var(--muted); font-size: 0.9rem; line-height: 1.45; margin: 0 0 1.2rem; }
-        .price-row { align-items: center; display: flex; justify-content: space-between; }
-        .price { font-size: 1.1rem; font-weight: 700; }
-        .add-button { background: var(--orange); padding: 0.65rem 0.85rem; }
-        .product-card:nth-child(2) .add-button { background: var(--acid); }
-        .product-card:nth-child(3) .add-button { background: var(--black); color: var(--cream); }
-        .badge { background: var(--acid); left: 0.8rem; padding: 0.45rem 0.6rem; position: absolute; top: 0.8rem; }
-
-        .manifesto { background: var(--black); color: var(--cream); display: grid; gap: 2rem; grid-template-columns: 0.8fr 1.2fr; margin: 7rem 0 0; padding: clamp(2rem, 5vw, 4rem); }
-        .manifesto h2 { color: var(--acid); font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3rem, 6vw, 6rem); line-height: 0.85; margin: 0; text-transform: uppercase; }
-        .manifesto p { color: #c5c7bc; font-size: 1.25rem; line-height: 1.55; margin: 0; max-width: 42rem; }
-        .footer { align-items: center; display: flex; justify-content: space-between; padding: 2rem 0 4rem; }
-        .footer a { font-weight: 700; }
-
-        @media (max-width: 700px) {
-            nav { display: none; }
-            .hero { grid-template-columns: 1fr; padding-top: 4rem; }
-            .hero-mark { height: 7rem; margin-top: 0; width: 7rem; }
-            .product-grid { grid-template-columns: 1fr; }
-            .manifesto { grid-template-columns: 1fr; margin-top: 4rem; }
-            .section-head h2 { font-size: 2.4rem; }
-        }
+        :root { --black:#11130f; --cream:#f1eee5; --orange:#ff5a1f; --acid:#d9f45b; --soft:#e4e1d7; --muted:#72756a; --line:rgba(17,19,15,.18); }
+        * { box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { background:var(--cream); color:var(--black); font-family:'Space Grotesk',sans-serif; margin:0; }
+        a { color:inherit; }
+        button { border:0; cursor:pointer; font:inherit; }
+        .mono { font-family:'DM Mono',monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; }
+        .wrap { margin:auto; max-width:84rem; padding:0 clamp(1.25rem,5vw,4rem); }
+        .topbar { background:var(--orange); font-size:.75rem; padding:.65rem; text-align:center; }
+        .site-header { align-items:center; border-bottom:1px solid var(--line); display:flex; gap:1.5rem; justify-content:space-between; padding:1.25rem 0; }
+        .brand { font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:800; letter-spacing:.04em; text-decoration:none; }
+        .brand span { color:var(--orange); }
+        nav { display:flex; gap:1.3rem; }
+        nav button { background:transparent; color:var(--black); font-size:.9rem; padding:0; }
+        nav button:hover, nav button.active { color:var(--orange); }
+        .cart { background:var(--black); color:var(--cream); padding:.65rem .9rem; }
+        .cart-count { color:var(--acid); }
+        .view { display:none; }
+        .view.active { display:block; }
+        .hero { align-items:end; display:grid; gap:2rem; grid-template-columns:1.15fr .85fr; padding:clamp(4rem,9vw,8rem) 0 5rem; }
+        .hero h1 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(5rem,13vw,12rem); font-weight:800; letter-spacing:-.06em; line-height:.78; margin:0; max-width:7ch; text-transform:uppercase; }
+        .hero h1 em { color:var(--orange); font-style:normal; }
+        .hero-copy { max-width:25rem; }
+        .hero-copy p { font-size:1.15rem; line-height:1.5; }
+        .hero-mark { align-items:center; background:var(--acid); border-radius:50%; display:flex; font-family:'Barlow Condensed',sans-serif; font-size:2.3rem; font-weight:700; height:10rem; justify-content:center; line-height:.85; margin-top:3rem; text-align:center; transform:rotate(8deg); width:10rem; }
+        .section-head { align-items:end; border-bottom:2px solid var(--black); display:flex; justify-content:space-between; margin-bottom:1.5rem; padding-bottom:.8rem; }
+        .section-head h2 { font-family:'Barlow Condensed',sans-serif; font-size:3rem; letter-spacing:-.03em; margin:0; text-transform:uppercase; }
+        .filter-bar { display:flex; gap:.5rem; margin-bottom:2rem; overflow-x:auto; }
+        .filter { background:transparent; border:1px solid var(--line); padding:.6rem .8rem; white-space:nowrap; }
+        .filter.active, .filter:hover { background:var(--black); color:var(--cream); }
+        .product-grid { display:grid; gap:1rem; grid-template-columns:repeat(3,1fr); }
+        .product-card { background:var(--soft); position:relative; }
+        .product-image { aspect-ratio:1/1.05; background:#d8d6ca; display:block; object-fit:cover; width:100%; }
+        .product-info { padding:1rem; }
+        .product-meta, .price-row, .account-row { align-items:center; display:flex; justify-content:space-between; }
+        .product-name { font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; margin:.8rem 0 .2rem; text-transform:uppercase; }
+        .product-description { color:var(--muted); font-size:.9rem; line-height:1.45; margin:0 0 1.2rem; }
+        .price { font-size:1.1rem; font-weight:700; }
+        .add-button { background:var(--orange); padding:.65rem .85rem; }
+        .product-card:nth-child(2) .add-button { background:var(--acid); }
+        .product-card:nth-child(3) .add-button { background:var(--black); color:var(--cream); }
+        .badge { background:var(--acid); left:.8rem; padding:.45rem .6rem; position:absolute; top:.8rem; }
+        .manifesto { background:var(--black); color:var(--cream); display:grid; gap:2rem; grid-template-columns:.8fr 1.2fr; margin:7rem 0 0; padding:clamp(2rem,5vw,4rem); }
+        .manifesto h2 { color:var(--acid); font-family:'Barlow Condensed',sans-serif; font-size:clamp(3rem,6vw,6rem); line-height:.85; margin:0; text-transform:uppercase; }
+        .manifesto p { color:#c5c7bc; font-size:1.25rem; line-height:1.55; margin:0; max-width:42rem; }
+        .dashboard-grid, .admin-grid { display:grid; gap:1rem; grid-template-columns:repeat(3,1fr); margin:3rem 0; }
+        .dashboard-card, .admin-card, .about-panel { background:#e4e1d7; padding:1.5rem; }
+        .dashboard-card strong { display:block; font-family:'Barlow Condensed',sans-serif; font-size:2.8rem; margin-top:1rem; }
+        .dashboard-main { display:grid; gap:2rem; grid-template-columns:1.3fr .7fr; }
+        .data-table { background:#e4e1d7; border-collapse:collapse; width:100%; }
+        .data-table th, .data-table td { border-bottom:1px solid var(--line); padding:1rem; text-align:left; }
+        .status { color:#3c731d; font-size:.8rem; font-weight:700; }
+        .side-list { list-style:none; margin:0; padding:0; }
+        .side-list li { border-bottom:1px solid var(--line); padding:1rem 0; }
+        .about-layout { display:grid; gap:1rem; grid-template-columns:1fr 1fr; margin:3rem 0; }
+        .about-panel h3 { font-family:'Barlow Condensed',sans-serif; font-size:2.3rem; margin:0 0 1rem; text-transform:uppercase; }
+        .about-panel p { line-height:1.6; margin:0; }
+        .form-panel { background:var(--black); color:var(--cream); margin:3rem auto; max-width:34rem; padding:clamp(1.5rem,5vw,3rem); }
+        .form-panel h2 { color:var(--acid); font-family:'Barlow Condensed',sans-serif; font-size:3rem; line-height:.9; margin:1rem 0; text-transform:uppercase; }
+        .form-panel p { color:#c5c7bc; line-height:1.5; }
+        label { display:block; margin:1.3rem 0 .5rem; }
+        input { background:transparent; border:1px solid #72756a; color:var(--cream); padding:.85rem; width:100%; }
+        .form-button { background:var(--orange); margin-top:1.3rem; padding:.85rem 1rem; width:100%; }
+        .form-message { color:var(--acid); margin-top:1rem; }
+        .footer { align-items:center; display:flex; justify-content:space-between; padding:2rem 0 4rem; }
+        .footer a { font-weight:700; }
+        @media (max-width:700px) { nav { display:none; } .hero, .dashboard-main, .about-layout { grid-template-columns:1fr; } .hero { padding-top:4rem; } .hero-mark { height:7rem; margin-top:0; width:7rem; } .product-grid, .dashboard-grid, .admin-grid { grid-template-columns:1fr; } .manifesto { grid-template-columns:1fr; margin-top:4rem; } .section-head h2 { font-size:2.4rem; } .data-table { font-size:.8rem; } }
     </style>
 </head>
 <body>
-    <div class="topbar">Free shipping on orders over $100 / Built for the work ahead</div>
+    <div class="topbar">Free delivery across Nigeria on orders over ₦150,000 / Built for the work ahead</div>
     <main>
         <div class="wrap">
             <header class="site-header">
-                <a class="brand" href="portfolio.html">FORGE<span>.</span></a>
-                <nav aria-label="Store navigation"><a href="#shop">Shop</a><a href="#story">Our story</a></nav>
+                <button class="brand nav-link" data-view="shop">FORGE<span>.</span></button>
+                <nav aria-label="Store navigation"><button class="nav-link active" data-view="shop">Shop</button><button class="nav-link" data-view="customer">Customer dashboard</button><button class="nav-link" data-view="about">About</button><button class="nav-link" data-view="admin">Admin</button></nav>
                 <button class="cart" type="button" aria-label="Shopping cart">Bag <span class="cart-count" id="cart-count">0</span></button>
             </header>
 
-            <section class="hero">
-                <div><span class="mono">Equipment for the relentless</span><h1>Train<br><em>harder.</em></h1></div>
-                <div class="hero-copy"><p>Essential gym products engineered for focused training, stronger routines, and the next rep.</p><div class="hero-mark">NO<br>SHORT<br>CUTS</div></div>
-            </section>
-
-            <section id="shop" aria-labelledby="shop-title">
-                <div class="section-head"><h2 id="shop-title">Shop the kit</h2><span class="mono">01 / 06</span></div>
-                <div class="filter-bar" aria-label="Product categories"><button class="filter active" type="button" data-filter="all">All gear</button><button class="filter" type="button" data-filter="strength">Strength</button><button class="filter" type="button" data-filter="recovery">Recovery</button><button class="filter" type="button" data-filter="apparel">Apparel</button></div>
+            <section id="shop" class="view active" aria-labelledby="shop-title">
+                <div class="hero"><div><span class="mono">Equipment for the relentless</span><h1>Train<br><em>harder.</em></h1></div><div class="hero-copy"><p>Essential gym products engineered for focused training, stronger routines, and the next rep.</p><div class="hero-mark">NO<br>SHORT<br>CUTS</div></div></div>
+                <div class="section-head"><h2 id="shop-title">Shop the kit</h2><span class="mono">Prices in naira</span></div>
+                <div class="filter-bar" aria-label="Product categories"><button class="filter active" data-filter="all">All gear</button><button class="filter" data-filter="strength">Strength</button><button class="filter" data-filter="recovery">Recovery</button><button class="filter" data-filter="apparel">Apparel</button></div>
                 <div class="product-grid">
-                    <article class="product-card" data-category="strength"><span class="badge mono">Best seller</span><img class="product-image" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=85" alt="Black dumbbells in a gym"><div class="product-info"><div class="product-meta"><span class="mono">Strength / 01</span><span>★★★★★</span></div><h3 class="product-name">Iron Hex Dumbbells</h3><p class="product-description">A matched pair with a solid grip and zero distractions.</p><div class="price-row"><span class="price">$68.00</span><button class="add-button" type="button">Add to bag +</button></div></div></article>
-                    <article class="product-card" data-category="recovery"><img class="product-image" src="https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=900&q=85" alt="Foam roller and gym equipment"><div class="product-info"><div class="product-meta"><span class="mono">Recovery / 02</span><span>★★★★☆</span></div><h3 class="product-name">Core Roll Pro</h3><p class="product-description">Dense textured foam for a deeper reset between sessions.</p><div class="price-row"><span class="price">$32.00</span><button class="add-button" type="button">Add to bag +</button></div></div></article>
-                    <article class="product-card" data-category="apparel"><span class="badge mono">New drop</span><img class="product-image" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85" alt="Athlete training in a gym"><div class="product-info"><div class="product-meta"><span class="mono">Apparel / 03</span><span>★★★★★</span></div><h3 class="product-name">Forge Training Tee</h3><p class="product-description">Heavyweight cotton. Relaxed cut. Made for repeat wear.</p><div class="price-row"><span class="price">$36.00</span><button class="add-button" type="button">Add to bag +</button></div></div></article>
+                    <article class="product-card" data-category="strength"><span class="badge mono">Best seller</span><img class="product-image" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=85" alt="Black dumbbells in a gym"><div class="product-info"><div class="product-meta"><span class="mono">Strength / 01</span><span>★★★★★</span></div><h3 class="product-name">Iron Hex Dumbbells</h3><p class="product-description">A matched pair with a solid grip and zero distractions.</p><div class="price-row"><span class="price">₦98,000</span><button class="add-button">Add to bag +</button></div></div></article>
+                    <article class="product-card" data-category="recovery"><img class="product-image" src="https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=900&q=85" alt="Foam roller and gym equipment"><div class="product-info"><div class="product-meta"><span class="mono">Recovery / 02</span><span>★★★★☆</span></div><h3 class="product-name">Core Roll Pro</h3><p class="product-description">Dense textured foam for a deeper reset between sessions.</p><div class="price-row"><span class="price">₦48,000</span><button class="add-button">Add to bag +</button></div></div></article>
+                    <article class="product-card" data-category="apparel"><span class="badge mono">New drop</span><img class="product-image" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85" alt="Athlete training in a gym"><div class="product-info"><div class="product-meta"><span class="mono">Apparel / 03</span><span>★★★★★</span></div><h3 class="product-name">Forge Training Tee</h3><p class="product-description">Heavyweight cotton. Relaxed cut. Made for repeat wear.</p><div class="price-row"><span class="price">₦55,000</span><button class="add-button">Add to bag +</button></div></div></article>
                 </div>
+                <section class="manifesto"><h2>Built for<br>the work.</h2><p>FORGE makes dependable gym essentials for people who show up. Every product earns its place through material, function, and the simple test of whether it helps you train better.</p></section>
             </section>
 
-            <section id="story" class="manifesto"><h2>Built for<br>the work.</h2><p>FORGE makes dependable gym essentials for people who show up. Every product earns its place through material, function, and the simple test of whether it helps you train better.</p></section>
-            <footer class="footer"><span class="mono">Forge Athletics / 2026</span><a href="mailto:orders@forge.example">Questions? Talk to us ↗</a></footer>
+            <section id="customer" class="view" aria-labelledby="customer-title"><div class="hero"><div><span class="mono">Customer account</span><h1 id="customer-title">Your<br><em>dashboard.</em></h1></div><div class="hero-copy"><p>Track your FORGE orders, keep your details ready, and get back to the work.</p></div></div><div class="dashboard-grid"><div class="dashboard-card"><span class="mono">Orders placed</span><strong>08</strong></div><div class="dashboard-card"><span class="mono">In progress</span><strong>02</strong></div><div class="dashboard-card"><span class="mono">Forge points</span><strong>1,240</strong></div></div><div class="dashboard-main"><div><div class="section-head"><h2>Recent orders</h2><span class="mono">Account / AM-2048</span></div><table class="data-table"><thead><tr><th>Order</th><th>Date</th><th>Total</th><th>Status</th></tr></thead><tbody><tr><td>#FG-1048</td><td>22 Sep 2026</td><td>₦98,000</td><td class="status">Shipped</td></tr><tr><td>#FG-0981</td><td>08 Sep 2026</td><td>₦55,000</td><td class="status">Delivered</td></tr><tr><td>#FG-0910</td><td>19 Aug 2026</td><td>₦48,000</td><td class="status">Delivered</td></tr></tbody></table></div><div class="dashboard-card"><span class="mono">Saved details</span><ul class="side-list"><li><strong>Alex Morgan</strong><br>Customer</li><li>Lagos, Nigeria</li><li>alex@example.com</li></ul><button class="form-button" type="button">Edit profile</button></div></div></section>
+
+            <section id="about" class="view" aria-labelledby="about-title"><div class="hero"><div><span class="mono">The FORGE standard</span><h1 id="about-title">Made to<br><em>move.</em></h1></div><div class="hero-copy"><p>We believe better equipment creates better habits. FORGE brings considered training essentials to athletes across Nigeria.</p></div></div><div class="about-layout"><article class="about-panel"><span class="mono">01 / Purpose</span><h3>Show up.</h3><p>Our gear is made for the early starts, the heavy sets, and the sessions where discipline matters more than motivation.</p></article><article class="about-panel"><span class="mono">02 / Promise</span><h3>No shortcuts.</h3><p>We choose durable materials, honest pricing in naira, and products that earn their space in your training routine.</p></article></div></section>
+
+            <section id="admin" class="view" aria-labelledby="admin-title"><div class="hero"><div><span class="mono">FORGE operations</span><h1 id="admin-title">Admin<br><em>desk.</em></h1></div><div class="hero-copy"><p>Store overview, inventory signals, and customer support tools in one place.</p></div></div><div class="admin-grid"><div class="admin-card"><span class="mono">Today sales</span><strong>₦386,000</strong></div><div class="admin-card"><span class="mono">Open orders</span><strong>14</strong></div><div class="admin-card"><span class="mono">Low stock items</span><strong>03</strong></div></div><div class="dashboard-main"><div><div class="section-head"><h2>Inventory</h2><span class="mono">Live snapshot</span></div><table class="data-table"><thead><tr><th>Product</th><th>Stock</th><th>Price</th></tr></thead><tbody><tr><td>Iron Hex Dumbbells</td><td>24 pairs</td><td>₦98,000</td></tr><tr><td>Core Roll Pro</td><td>08 units</td><td>₦48,000</td></tr><tr><td>Forge Training Tee</td><td>03 units</td><td>₦55,000</td></tr></tbody></table></div><div class="admin-card"><span class="mono">Admin access</span><h3>Need a reset?</h3><p>Use the secure recovery form if you cannot access the operations desk.</p><button class="form-button" id="forgot-button" type="button">Forgot password</button></div></div></section>
+
+            <section id="forgot" class="view" aria-labelledby="forgot-title"><div class="form-panel"><span class="mono">Admin recovery</span><h2 id="forgot-title">Reset your access.</h2><p>Enter the admin email and we will send a recovery link. This demo form confirms the request locally.</p><form id="forgot-form"><label for="admin-email">Admin email</label><input id="admin-email" type="email" placeholder="admin@forge.ng" required><button class="form-button" type="submit">Send recovery link</button><p id="form-message" class="form-message" hidden>Recovery request received. Check your inbox.</p></form></div></section>
+
+            <footer class="footer"><span class="mono">Forge Athletics / Nigeria / 2026</span><a href="mailto:orders@forge.example">Questions? Talk to us ↗</a></footer>
         </div>
     </main>
     <script>
         const cartCount = document.querySelector('#cart-count');
-        const filterButtons = document.querySelectorAll('.filter');
-        const products = document.querySelectorAll('.product-card');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const views = document.querySelectorAll('.view');
         let itemsInBag = 0;
-
-        document.querySelectorAll('.add-button').forEach((button) => {
-            button.addEventListener('click', () => {
-                itemsInBag += 1;
-                cartCount.textContent = itemsInBag;
-                button.textContent = 'Added ✓';
-            });
-        });
-
-        filterButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach((item) => item.classList.remove('active'));
-                button.classList.add('active');
-                products.forEach((product) => {
-                    product.hidden = button.dataset.filter !== 'all' && product.dataset.category !== button.dataset.filter;
-                });
-            });
-        });
+        function showView(viewName) {
+            views.forEach((view) => view.classList.toggle('active', view.id === viewName));
+            navLinks.forEach((link) => link.classList.toggle('active', link.dataset.view === viewName));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        navLinks.forEach((link) => link.addEventListener('click', () => showView(link.dataset.view)));
+        document.querySelectorAll('.add-button').forEach((button) => button.addEventListener('click', () => { itemsInBag += 1; cartCount.textContent = itemsInBag; button.textContent = 'Added ✓'; }));
+        document.querySelectorAll('.filter').forEach((button) => button.addEventListener('click', () => { document.querySelectorAll('.filter').forEach((item) => item.classList.remove('active')); button.classList.add('active'); document.querySelectorAll('.product-card').forEach((product) => { product.hidden = button.dataset.filter !== 'all' && product.dataset.category !== button.dataset.filter; }); }));
+        document.querySelector('#forgot-button').addEventListener('click', () => showView('forgot'));
+        document.querySelector('#forgot-form').addEventListener('submit', (event) => { event.preventDefault(); document.querySelector('#form-message').hidden = false; });
     </script>
 </body>
 </html>
