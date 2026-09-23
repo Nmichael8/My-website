@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signal Archive | Private Access</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
         :root {
-            --ink: #080b12;
-            --muted: #8d98a8;
-            --paper: #e9eef2;
-            --coral: #ff704d;
-            --lime: #c9ff72;
-            --line: rgba(233, 238, 242, 0.16);
+            --ink: #10100f;
+            --muted: #b8b4ad;
+            --paper: #fbfaf7;
+            --gold: #d8b878;
+            --gold-bright: #f0d49a;
+            --line: rgba(216, 184, 120, 0.28);
         }
 
         * {
@@ -23,14 +23,14 @@
         body {
             background: var(--ink);
             color: var(--paper);
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Manrope', sans-serif;
             margin: 0;
             min-height: 100vh;
         }
 
         body::before {
-            background-image: linear-gradient(rgba(201, 255, 114, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 255, 114, 0.05) 1px, transparent 1px);
-            background-size: 4rem 4rem;
+            background-image: linear-gradient(rgba(216, 184, 120, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(216, 184, 120, 0.07) 1px, transparent 1px);
+            background-size: 5rem 5rem;
             content: '';
             height: 100%;
             position: fixed;
@@ -40,9 +40,9 @@
         }
 
         body::after {
-            background: var(--coral);
+            background: var(--gold);
             border-radius: 50%;
-            box-shadow: 0 0 100px rgba(255, 112, 77, 0.35);
+            box-shadow: 0 0 100px rgba(216, 184, 120, 0.3);
             content: '';
             height: 18rem;
             position: fixed;
@@ -82,7 +82,7 @@
         }
 
         .access-card {
-            background: rgba(8, 11, 18, 0.84);
+            background: rgba(16, 16, 15, 0.93);
             border: 1px solid var(--line);
             color: var(--paper);
             display: grid;
@@ -97,7 +97,7 @@
 
         .access-card::before,
         .access-card::after {
-            border: 1px solid rgba(201, 255, 114, 0.25);
+            border: 1px solid rgba(216, 184, 120, 0.3);
             border-radius: 50%;
             content: '';
             height: 27rem;
@@ -109,14 +109,14 @@
         }
 
         .access-card::after {
-            border-color: rgba(255, 112, 77, 0.32);
+            border-color: rgba(251, 250, 247, 0.2);
             height: 18rem;
             width: 18rem;
         }
 
         .access-intro {
-            background: linear-gradient(145deg, rgba(255, 112, 77, 0.95), rgba(255, 112, 77, 0.7));
-            color: var(--ink);
+            background: linear-gradient(145deg, #d8b878, #a9854e);
+            color: #17130d;
             padding: clamp(2rem, 6vw, 5.5rem);
             position: relative;
             z-index: 1;
@@ -134,8 +134,9 @@
         }
 
         .access-intro h1 {
+            font-family: 'Playfair Display', serif;
             font-size: clamp(3.5rem, 8vw, 6.5rem);
-            letter-spacing: -0.08em;
+            letter-spacing: -0.05em;
             line-height: 0.86;
             margin: 3rem 0 1.5rem;
             max-width: 8ch;
@@ -155,7 +156,7 @@
         }
 
         .access-form::before {
-            color: var(--lime);
+            color: var(--gold-bright);
             content: '✦  ACCESS NODE 07';
             display: block;
             font-family: 'DM Mono', monospace;
@@ -165,8 +166,9 @@
         }
 
         .access-form h2 {
+            font-family: 'Playfair Display', serif;
             font-size: 2rem;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.03em;
             margin: 0 0 0.75rem;
         }
 
@@ -183,7 +185,7 @@
 
         .input-row {
             display: flex;
-            border: 1px solid rgba(233, 238, 242, 0.32);
+            border: 1px solid rgba(251, 250, 247, 0.3);
             gap: 0.75rem;
             padding: 0.35rem 0.35rem 0.35rem 0.8rem;
         }
@@ -199,15 +201,15 @@
         }
 
         .input-row button {
-            background: var(--lime);
-            color: var(--ink);
+            background: var(--gold-bright);
+            color: #17130d;
             font-size: 1.25rem;
             min-width: 3rem;
             padding: 0.65rem 1rem;
         }
 
         #error-message {
-            color: #ff9b83;
+            color: #e8a08e;
             margin-top: 1rem;
         }
 
