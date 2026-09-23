@@ -368,13 +368,17 @@
                 <form id="password-form" class="access-form">
                     <span class="mono">Invitation required</span>
                     <h2 id="password-title">Unlock the archive.</h2>
-                    <p>Enter your private passcode to access the full portfolio and behind-the-scenes work.</p>
-                    <label class="mono" for="password">Passcode</label>
+                    <p>Enter your account details to access the full portfolio and behind-the-scenes work.</p>
+                    <label class="mono" for="email">Email address</label>
                     <div class="input-row">
-                        <input id="password" name="password" type="password" placeholder="••••••••" required>
+                        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                    </div>
+                    <label class="mono" for="password">Password</label>
+                    <div class="input-row">
+                        <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required>
                         <button type="submit" aria-label="Access portfolio">→</button>
                     </div>
-                    <p id="error-message" role="alert" hidden>That passcode did not work. Try again.</p>
+                    <p id="error-message" role="alert" hidden>That email or password is incorrect. Try again.</p>
                 </form>
             </div>
         </section>
@@ -383,14 +387,16 @@
 
     <script>
         const passwordForm = document.querySelector('#password-form');
+        const emailInput = document.querySelector('#email');
         const passwordInput = document.querySelector('#password');
         const errorMessage = document.querySelector('#error-message');
-        const websitePassword = 'mywebsite123';
+        const accountEmail = 'nwufomichael8@gmail.com';
+        const accountPassword = 'Nmichael8@';
 
         passwordForm.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            if (passwordInput.value === websitePassword) {
+            if (emailInput.value.trim().toLowerCase() === accountEmail && passwordInput.value === accountPassword) {
                 window.location.href = 'portfolio.html';
                 return;
             }
