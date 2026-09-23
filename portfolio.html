@@ -21,6 +21,7 @@
         nav { display:flex; gap:1.3rem; }
         nav button { background:transparent; color:var(--muted); font-size:.9rem; padding:0; }
         nav button:hover, nav button.active { color:var(--gold-bright); }
+        .logout-link { color:var(--gold-bright); font-size:.9rem; text-decoration:none; }
         .cart { background:var(--gold-bright); color:var(--black); padding:.65rem .9rem; }
         .cart-count { color:var(--black); }
         .view { display:none; }
@@ -80,7 +81,7 @@
         <div class="wrap">
             <header class="site-header">
                 <button class="brand nav-link" data-view="shop">FORGE<span>.</span></button>
-                <nav aria-label="Store navigation"><button class="nav-link active" data-view="shop">Shop</button><button class="nav-link" data-view="customer">Customer dashboard</button><button class="nav-link" data-view="about">About</button><button class="nav-link" data-view="admin">Admin</button></nav>
+                <nav aria-label="Store navigation"><button class="nav-link active" data-view="shop">Shop</button><button class="nav-link" data-view="customer">Customer dashboard</button><button class="nav-link" data-view="about">About</button><button class="nav-link" data-view="admin">Admin</button><a class="logout-link" href="logout.html">Logout</a></nav>
                 <button class="cart" type="button" aria-label="Shopping cart">Bag <span class="cart-count" id="cart-count">0</span></button>
             </header>
 
