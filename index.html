@@ -165,6 +165,28 @@
             margin-bottom: 3rem;
         }
 
+        .role-switch {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-button {
+            background: transparent;
+            border: 1px solid rgba(251, 250, 247, 0.2);
+            color: var(--muted);
+            padding: 0.8rem 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .role-button.active {
+            background: var(--gold-bright);
+            border-color: var(--gold-bright);
+            color: #17130d;
+            font-weight: 700;
+        }
+
         .access-form h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
@@ -369,8 +391,13 @@
                 </div>
                 <form id="password-form" class="access-form">
                     <span class="mono">Invitation required</span>
-                    <h2 id="password-title">Unlock the archive.</h2>
-                    <p>Enter your account details to access the full portfolio and behind-the-scenes work.</p>
+                    <h2 id="password-title">Choose your access.</h2>
+                    <div class="role-switch" aria-label="Account type">
+                        <button class="role-button active" type="button" data-role="admin">Admin</button>
+                        <button class="role-button" type="button" data-role="customer">Customer</button>
+                    </div>
+                    <p id="access-message">Admin access is restricted to authorized staff and managers.</p>
+
                     <label class="mono" for="email">Email address</label>
                     <div class="input-row">
                         <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
@@ -392,14 +419,48 @@
         const emailInput = document.querySelector('#email');
         const passwordInput = document.querySelector('#password');
         const errorMessage = document.querySelector('#error-message');
-        const accountEmail = 'nwufomichael8@gmail.com';
-        const accountPassword = 'Nmichael8@';
+        const roleButtons = document.querySelectorAll('.role-button');
+        const accessMessage = document.querySelector('#access-message');
+
+        const adminAccount = {
+            email: 'nwufomichael8@gmail.com',
+            password: 'Nmichael8@',
+            redirect: 'portfolio.html?role=admin'
+        };
+
+        const customerAccount = {
+            email: 'customer@forge.com',
+            password: 'Customer123@',
+            redirect: 'portfolio.html?role=customer'
+        };
+
+        let activeRole = 'admin';
+
+        roleButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                activeRole = button.dataset.role;
+                roleButtons.forEach((item) => item.classList.toggle('active', item === button));
+
+                if (activeRole === 'admin') {
+                    accessMessage.textContent = 'Admin access is restricted to authorized staff and managers.';
+                } else {
+                    accessMessage.textContent = 'Customer access gives you the storefront and bag experience.';
+                }
+
+                errorMessage.hidden = true;
+            });
+        });
 
         passwordForm.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            if (emailInput.value.trim().toLowerCase() === accountEmail && passwordInput.value === accountPassword) {
-                window.location.href = 'portfolio.html';
+            const enteredEmail = emailInput.value.trim().toLowerCase();
+            const enteredPassword = passwordInput.value;
+
+            const account = activeRole === 'admin' ? adminAccount : customerAccount;
+
+            if (enteredEmail === account.email && enteredPassword === account.password) {
+                window.location.href = account.redirect;
                 return;
             }
 

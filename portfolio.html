@@ -6,22 +6,35 @@
     <title>FORGE | Nigerian Training Equipment</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
-        :root { --black:#10100f; --cream:#fbfaf7; --gold:#d8b878; --gold-bright:#f0d49a; --soft:#1d1c1a; --muted:#b8b4ad; --line:rgba(216,184,120,.28); }
+        :root {
+            --black:#0f0f0d;
+            --black-2:#171613;
+            --cream:#f8f5f0;
+            --cream-strong:#ffffff;
+            --gold:#d8b878;
+            --gold-bright:#f0d49a;
+            --soft:#1c1a17;
+            --muted:#d6d0c7;
+            --muted-soft:#a9a097;
+            --line:rgba(216,184,120,.32);
+            --shadow:rgba(0,0,0,.2);
+        }
         * { box-sizing:border-box; }
         html { scroll-behavior:smooth; }
-        body { background:var(--black); color:var(--cream); font-family:'Manrope',sans-serif; margin:0; }
+        body { background:var(--black); color:var(--cream); font-family:'Manrope',sans-serif; margin:0; line-height:1.5; }
         a { color:inherit; }
         button { border:0; cursor:pointer; font:inherit; }
         .mono { font-family:'DM Mono',monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; }
         .wrap { margin:auto; max-width:84rem; padding:0 clamp(1.25rem,5vw,4rem); }
         .topbar { background:var(--gold); color:var(--black); font-size:.75rem; padding:.65rem; text-align:center; }
+        .role-badge { background:rgba(240,212,154,.1); border:1px solid var(--line); color:var(--gold-bright); display:inline-block; margin-bottom:1rem; padding:.45rem .7rem; }
         .site-header { align-items:center; border-bottom:1px solid var(--line); display:flex; gap:1.5rem; justify-content:space-between; padding:1.25rem 0; }
-        .brand { color:var(--cream); font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; letter-spacing:.04em; text-decoration:none; }
+        .brand { color:var(--cream-strong); font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; letter-spacing:.04em; text-decoration:none; text-shadow:0 0 18px rgba(240,212,154,.18); }
         .brand span { color:var(--gold); }
         nav { display:flex; gap:1.3rem; }
-        nav button { background:transparent; color:var(--muted); font-size:.9rem; padding:0; }
+        nav button { background:transparent; color:var(--muted); font-size:.95rem; font-weight:600; padding:0; }
         nav button:hover, nav button.active { color:var(--gold-bright); }
-        .logout-link { color:var(--gold-bright); font-size:.9rem; text-decoration:none; }
+        .logout-link { color:var(--gold-bright); font-size:.95rem; font-weight:700; text-decoration:none; }
         .cart { background:var(--gold-bright); color:var(--black); padding:.65rem .9rem; }
         .cart-count { color:var(--black); }
         .view { display:none; }
@@ -30,10 +43,10 @@
         .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(4.5rem,11vw,10rem); font-weight:700; letter-spacing:-.06em; line-height:.82; margin:0; max-width:7ch; }
         .hero h1 em { color:var(--gold); font-style:normal; }
         .hero-copy { max-width:25rem; }
-        .hero-copy p { font-size:1.15rem; line-height:1.5; }
+        .hero-copy p { color:var(--cream); font-size:1.15rem; line-height:1.6; opacity:1; }
         .hero-mark { align-items:center; background:var(--gold); border-radius:50%; color:var(--black); display:flex; font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; height:10rem; justify-content:center; line-height:.85; margin-top:3rem; text-align:center; transform:rotate(8deg); width:10rem; }
         .section-head { align-items:end; border-bottom:2px solid var(--gold); display:flex; justify-content:space-between; margin-bottom:1.5rem; padding-bottom:.8rem; }
-        .section-head h2 { font-family:'Playfair Display',serif; font-size:3rem; letter-spacing:-.03em; margin:0; }
+        .section-head h2 { color:var(--cream-strong); font-family:'Playfair Display',serif; font-size:3rem; letter-spacing:-.03em; margin:0; }
         .filter-bar { display:flex; gap:.5rem; margin-bottom:2rem; overflow-x:auto; }
         .filter { background:transparent; border:1px solid var(--line); color:var(--muted); padding:.6rem .8rem; white-space:nowrap; }
         .filter.active, .filter:hover { background:var(--gold); color:var(--black); }
@@ -42,17 +55,18 @@
         .product-image { aspect-ratio:1/1.05; background:#d8d6ca; display:block; object-fit:cover; width:100%; }
         .product-info { padding:1rem; }
         .product-meta, .price-row, .account-row { align-items:center; display:flex; justify-content:space-between; }
-        .product-name { color:var(--cream); font-family:'Playfair Display',serif; font-size:1.8rem; margin:.8rem 0 .2rem; }
-        .product-description { color:var(--muted); font-size:.9rem; line-height:1.45; margin:0 0 1.2rem; }
-        .price { font-size:1.1rem; font-weight:700; }
+        .product-meta { color:var(--muted); font-weight:600; }
+        .product-name { color:var(--cream-strong); font-family:'Playfair Display',serif; font-size:1.8rem; margin:.8rem 0 .2rem; }
+        .product-description { color:var(--muted); font-size:.95rem; line-height:1.5; margin:0 0 1.2rem; }
+        .price { color:var(--cream-strong); font-size:1.15rem; font-weight:800; }
         .add-button { background:var(--gold-bright); color:var(--black); padding:.65rem .85rem; }
         .product-card:nth-child(2) .add-button, .product-card:nth-child(3) .add-button { background:var(--gold-bright); color:var(--black); }
         .badge { background:var(--gold); color:var(--black); left:.8rem; padding:.45rem .6rem; position:absolute; top:.8rem; }
         .manifesto { background:#191816; border:1px solid var(--line); color:var(--cream); display:grid; gap:2rem; grid-template-columns:.8fr 1.2fr; margin:7rem 0 0; padding:clamp(2rem,5vw,4rem); }
         .manifesto h2 { color:var(--gold-bright); font-family:'Playfair Display',serif; font-size:clamp(3rem,6vw,6rem); line-height:.85; margin:0; }
-        .manifesto p { color:var(--muted); font-size:1.25rem; line-height:1.55; margin:0; max-width:42rem; }
-        .dashboard-grid, .admin-grid { display:grid; gap:1rem; grid-template-columns:repeat(3,1fr); margin:3rem 0; }
-        .dashboard-card, .admin-card, .about-panel { background:var(--soft); border:1px solid var(--line); padding:1.5rem; }
+        .manifesto p { color:var(--cream); font-size:1.25rem; line-height:1.6; margin:0; max-width:42rem; }
+        .dashboard-grid { display:grid; gap:1rem; grid-template-columns:repeat(3,1fr); margin:3rem 0; }
+        .dashboard-card, .about-panel { background:var(--soft); border:1px solid var(--line); padding:1.5rem; }
         .dashboard-card strong { color:var(--gold-bright); display:block; font-family:'Playfair Display',serif; font-size:2.8rem; margin-top:1rem; }
         .dashboard-main { display:grid; gap:2rem; grid-template-columns:1.3fr .7fr; }
         .data-table { background:var(--soft); border-collapse:collapse; width:100%; }
@@ -62,17 +76,17 @@
         .side-list li { border-bottom:1px solid var(--line); padding:1rem 0; }
         .about-layout { display:grid; gap:1rem; grid-template-columns:1fr 1fr; margin:3rem 0; }
         .about-panel h3 { color:var(--gold-bright); font-family:'Playfair Display',serif; font-size:2.3rem; margin:0 0 1rem; }
-        .about-panel p { line-height:1.6; margin:0; }
-        .form-panel { background:#191816; border:1px solid var(--line); color:var(--cream); margin:3rem auto; max-width:34rem; padding:clamp(1.5rem,5vw,3rem); }
-        .form-panel h2 { color:var(--gold-bright); font-family:'Playfair Display',serif; font-size:3rem; line-height:.9; margin:1rem 0; }
-        .form-panel p { color:var(--muted); line-height:1.5; }
+        .about-panel p { color:var(--muted); line-height:1.7; margin:0; }
         label { display:block; margin:1.3rem 0 .5rem; }
         input { background:transparent; border:1px solid var(--line); color:var(--cream); padding:.85rem; width:100%; }
         .form-button { background:var(--gold-bright); color:var(--black); margin-top:1.3rem; padding:.85rem 1rem; width:100%; }
-        .form-message { color:var(--gold-bright); margin-top:1rem; }
+        .cart-panel { background:#191816; border:1px solid var(--gold); display:none; margin:1rem 0 0 auto; max-width:22rem; padding:1.25rem; }
+        .cart-panel.open { display:block; }
+        .cart-panel h2 { font-family:'Playfair Display',serif; font-size:1.5rem; margin:0 0 1rem; }
+        .cart-total { align-items:center; border-top:1px solid var(--line); display:flex; justify-content:space-between; margin-top:1rem; padding-top:1rem; }
         .footer { align-items:center; display:flex; justify-content:space-between; padding:2rem 0 4rem; }
-        .footer a { font-weight:700; }
-        @media (max-width:700px) { nav { display:none; } .hero, .dashboard-main, .about-layout { grid-template-columns:1fr; } .hero { padding-top:4rem; } .hero-mark { height:7rem; margin-top:0; width:7rem; } .product-grid, .dashboard-grid, .admin-grid { grid-template-columns:1fr; } .manifesto { grid-template-columns:1fr; margin-top:4rem; } .section-head h2 { font-size:2.4rem; } .data-table { font-size:.8rem; } }
+        .footer a { color:var(--gold-bright); font-weight:700; }
+        @media (max-width:700px) { nav { display:none; } .hero, .dashboard-main, .about-layout { grid-template-columns:1fr; } .hero { padding-top:4rem; } .hero-mark { height:7rem; margin-top:0; width:7rem; } .product-grid, .dashboard-grid { grid-template-columns:1fr; } .manifesto { grid-template-columns:1fr; margin-top:4rem; } .section-head h2 { font-size:2.4rem; } .data-table { font-size:.8rem; } }
     </style>
 </head>
 <body>
@@ -81,9 +95,11 @@
         <div class="wrap">
             <header class="site-header">
                 <button class="brand nav-link" data-view="shop">FORGE<span>.</span></button>
-                <nav aria-label="Store navigation"><button class="nav-link active" data-view="shop">Shop</button><button class="nav-link" data-view="customer">Customer dashboard</button><button class="nav-link" data-view="about">About</button><button class="nav-link" data-view="admin">Admin</button><a class="logout-link" href="logout.html">Logout</a></nav>
-                <button class="cart" type="button" aria-label="Shopping cart">Bag <span class="cart-count" id="cart-count">0</span></button>
+                <nav aria-label="Store navigation"><button class="nav-link active" data-view="shop">Shop</button><button class="nav-link" data-view="customer">Customer dashboard</button><button class="nav-link" data-view="about">About</button><a class="logout-link" href="logout.html">Logout</a></nav>
+                <button class="cart" id="cart-button" type="button" aria-expanded="false" aria-controls="cart-panel">Bag <span class="cart-count" id="cart-count">0</span> · <span id="cart-total">₦0</span></button>
             </header>
+            <div id="role-badge" class="role-badge">Admin portal</div>
+            <aside class="cart-panel" id="cart-panel" aria-live="polite"><h2>Your bag</h2><p id="cart-summary">Your bag is empty.</p><div class="cart-total"><span class="mono">Total</span><strong id="cart-total-panel">₦0</strong></div></aside>
 
             <section id="shop" class="view active" aria-labelledby="shop-title">
                 <div class="hero"><div><span class="mono">Equipment for the relentless</span><h1>Train<br><em>harder.</em></h1></div><div class="hero-copy"><p>Essential gym products engineered for focused training, stronger routines, and the next rep.</p><div class="hero-mark">NO<br>SHORT<br>CUTS</div></div></div>
@@ -101,28 +117,59 @@
 
             <section id="about" class="view" aria-labelledby="about-title"><div class="hero"><div><span class="mono">The FORGE standard</span><h1 id="about-title">Made to<br><em>move.</em></h1></div><div class="hero-copy"><p>We believe better equipment creates better habits. FORGE brings considered training essentials to athletes across Nigeria.</p></div></div><div class="about-layout"><article class="about-panel"><span class="mono">01 / Purpose</span><h3>Show up.</h3><p>Our gear is made for the early starts, the heavy sets, and the sessions where discipline matters more than motivation.</p></article><article class="about-panel"><span class="mono">02 / Promise</span><h3>No shortcuts.</h3><p>We choose durable materials, honest pricing in naira, and products that earn their space in your training routine.</p></article></div></section>
 
-            <section id="admin" class="view" aria-labelledby="admin-title"><div class="hero"><div><span class="mono">FORGE operations</span><h1 id="admin-title">Admin<br><em>desk.</em></h1></div><div class="hero-copy"><p>Store overview, inventory signals, and customer support tools in one place.</p></div></div><div class="admin-grid"><div class="admin-card"><span class="mono">Today sales</span><strong>₦386,000</strong></div><div class="admin-card"><span class="mono">Open orders</span><strong>14</strong></div><div class="admin-card"><span class="mono">Low stock items</span><strong>03</strong></div></div><div class="dashboard-main"><div><div class="section-head"><h2>Inventory</h2><span class="mono">Live snapshot</span></div><table class="data-table"><thead><tr><th>Product</th><th>Stock</th><th>Price</th></tr></thead><tbody><tr><td>Iron Hex Dumbbells</td><td>24 pairs</td><td>₦98,000</td></tr><tr><td>Core Roll Pro</td><td>08 units</td><td>₦48,000</td></tr><tr><td>Forge Training Tee</td><td>03 units</td><td>₦55,000</td></tr></tbody></table></div><div class="admin-card"><span class="mono">Admin access</span><h3>Need a reset?</h3><p>Use the secure recovery form if you cannot access the operations desk.</p><button class="form-button" id="forgot-button" type="button">Forgot password</button></div></div></section>
-
-            <section id="forgot" class="view" aria-labelledby="forgot-title"><div class="form-panel"><span class="mono">Admin recovery</span><h2 id="forgot-title">Reset your access.</h2><p>Enter the admin email and we will send a recovery link. This demo form confirms the request locally.</p><form id="forgot-form"><label for="admin-email">Admin email</label><input id="admin-email" type="email" placeholder="admin@forge.ng" required><button class="form-button" type="submit">Send recovery link</button><p id="form-message" class="form-message" hidden>Recovery request received. Check your inbox.</p></form></div></section>
-
             <footer class="footer"><span class="mono">Forge Athletics / Nigeria / 2026</span><a href="mailto:orders@forge.example">Questions? Talk to us ↗</a></footer>
         </div>
     </main>
     <script>
+        const cartButton = document.querySelector('#cart-button');
         const cartCount = document.querySelector('#cart-count');
+        const cartTotal = document.querySelector('#cart-total');
+        const cartPanel = document.querySelector('#cart-panel');
+        const cartSummary = document.querySelector('#cart-summary');
+        const cartTotalPanel = document.querySelector('#cart-total-panel');
         const navLinks = document.querySelectorAll('.nav-link');
         const views = document.querySelectorAll('.view');
+        const roleBadge = document.querySelector('#role-badge');
+        const productPrices = [98000, 48000, 55000];
+        const formatNaira = (amount) => `₦${amount.toLocaleString('en-NG')}`;
+        const urlParams = new URLSearchParams(window.location.search);
+        const userRole = urlParams.get('role') === 'customer' ? 'customer' : 'admin';
         let itemsInBag = 0;
+        let bagTotal = 0;
+
+        if (userRole === 'customer') {
+            roleBadge.textContent = 'Customer portal';
+            document.title = 'FORGE | Customer Access';
+            document.querySelector('#shop-title').textContent = 'Customer picks';
+            document.querySelector('.topbar').textContent = 'Customer access / Ready for checkout';
+            document.querySelector('.hero-copy p').textContent = 'Browse your training essentials, build your kit, and prepare your next session with FORGE.';
+            document.querySelector('#customer-title').innerHTML = 'Your<br><em>kit.</em>';
+        } else {
+            roleBadge.textContent = 'Admin portal';
+            document.title = 'FORGE | Admin Access';
+        }
+
         function showView(viewName) {
             views.forEach((view) => view.classList.toggle('active', view.id === viewName));
             navLinks.forEach((link) => link.classList.toggle('active', link.dataset.view === viewName));
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
         navLinks.forEach((link) => link.addEventListener('click', () => showView(link.dataset.view)));
-        document.querySelectorAll('.add-button').forEach((button) => button.addEventListener('click', () => { itemsInBag += 1; cartCount.textContent = itemsInBag; button.textContent = 'Added ✓'; }));
+        document.querySelectorAll('.add-button').forEach((button, index) => button.addEventListener('click', () => {
+            itemsInBag += 1;
+            bagTotal += productPrices[index];
+            cartCount.textContent = itemsInBag;
+            cartTotal.textContent = formatNaira(bagTotal);
+            cartTotalPanel.textContent = formatNaira(bagTotal);
+            cartSummary.textContent = `${itemsInBag} item${itemsInBag === 1 ? '' : 's'} ready for checkout.`;
+            button.textContent = 'Added ✓';
+        }));
+        cartButton.addEventListener('click', () => {
+            const isOpen = cartPanel.classList.toggle('open');
+            cartButton.setAttribute('aria-expanded', isOpen);
+        });
         document.querySelectorAll('.filter').forEach((button) => button.addEventListener('click', () => { document.querySelectorAll('.filter').forEach((item) => item.classList.remove('active')); button.classList.add('active'); document.querySelectorAll('.product-card').forEach((product) => { product.hidden = button.dataset.filter !== 'all' && product.dataset.category !== button.dataset.filter; }); }));
-        document.querySelector('#forgot-button').addEventListener('click', () => showView('forgot'));
-        document.querySelector('#forgot-form').addEventListener('submit', (event) => { event.preventDefault(); document.querySelector('#form-message').hidden = false; });
     </script>
 </body>
 </html>
