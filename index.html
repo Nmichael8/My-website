@@ -187,6 +187,27 @@
             font-weight: 700;
         }
 
+        .auth-toggle {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-toggle button {
+            background: transparent;
+            border: 1px solid rgba(251, 250, 247, 0.2);
+            color: var(--muted);
+            flex: 1;
+            padding: 0.8rem 1rem;
+        }
+
+        .auth-toggle button.active {
+            background: var(--gold-bright);
+            border-color: var(--gold-bright);
+            color: #17130d;
+            font-weight: 700;
+        }
+
         .access-form h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
@@ -389,9 +410,13 @@
                     <h1>Enter the signal.</h1>
                     <p>A curated portfolio of digital work, visual experiments, and ideas in progress by Alex Morgan.</p>
                 </div>
-                <form id="password-form" class="access-form">
+                <form id="login-form" class="access-form">
                     <span class="mono">Invitation required</span>
                     <h2 id="password-title">Choose your access.</h2>
+                    <div class="auth-toggle" aria-label="Authentication mode">
+                        <button class="active" type="button" data-mode="login">Login</button>
+                        <button type="button" data-mode="signup">Sign up</button>
+                    </div>
                     <div class="role-switch" aria-label="Account type">
                         <button class="role-button active" type="button" data-role="admin">Admin</button>
                         <button class="role-button" type="button" data-role="customer">Customer</button>
@@ -409,32 +434,81 @@
                     </div>
                     <p id="error-message" role="alert" hidden>That email or password is incorrect. Try again.</p>
                 </form>
+
+                <form id="signup-form" class="access-form" hidden>
+                    <span class="mono">Create account</span>
+                    <h2>Open a new customer account.</h2>
+                    <p>Create your profile and access the customer storefront as a new user.</p>
+
+                    <label class="mono" for="signup-name">Full name</label>
+                    <div class="input-row">
+                        <input id="signup-name" name="signup-name" type="text" placeholder="Jane Doe" required>
+                    </div>
+
+                    <label class="mono" for="signup-email">Email address</label>
+                    <div class="input-row">
+                        <input id="signup-email" name="signup-email" type="email" placeholder="newuser@example.com" autocomplete="email" required>
+                    </div>
+
+                    <label class="mono" for="signup-password">Password</label>
+                    <div class="input-row">
+                        <input id="signup-password" name="signup-password" type="password" placeholder="Create a password" autocomplete="new-password" required>
+                    </div>
+
+                    <label class="mono" for="signup-confirm">Confirm password</label>
+                    <div class="input-row">
+                        <input id="signup-confirm" name="signup-confirm" type="password" placeholder="Confirm password" autocomplete="new-password" required>
+                    </div>
+
+                    <button type="submit" class="form-button" style="margin-top:1.3rem; background:var(--gold-bright); color:#17130d; width:100%; padding:0.9rem 1rem;">Create account</button>
+                    <p id="signup-message" role="status" hidden></p>
+                </form>
             </div>
         </section>
 
     </main>
 
     <script>
-        const passwordForm = document.querySelector('#password-form');
+        const loginForm = document.querySelector('#login-form');
+        const signupForm = document.querySelector('#signup-form');
         const emailInput = document.querySelector('#email');
         const passwordInput = document.querySelector('#password');
         const errorMessage = document.querySelector('#error-message');
         const roleButtons = document.querySelectorAll('.role-button');
         const accessMessage = document.querySelector('#access-message');
+        const authToggleButtons = document.querySelectorAll('.auth-toggle button');
+        const signupNameInput = document.querySelector('#signup-name');
+        const signupEmailInput = document.querySelector('#signup-email');
+        const signupPasswordInput = document.querySelector('#signup-password');
+        const signupConfirmInput = document.querySelector('#signup-confirm');
+        const signupMessage = document.querySelector('#signup-message');
 
-        const adminAccount = {
-            email: 'nwufomichael8@gmail.com',
-            password: 'Nmichael8@',
-            redirect: 'portfolio.html?role=admin'
-        };
+        const USERS_KEY = 'forgeUsers';
 
-        const customerAccount = {
-            email: 'customer@forge.com',
-            password: 'Customer123@',
-            redirect: 'portfolio.html?role=customer'
-        };
+        const defaultUsers = [
+            { name: 'Admin User', email: 'nwufomichael8@gmail.com', password: 'Nmichael8@', role: 'admin' },
+            { name: 'Customer User', email: 'customer@forge.com', password: 'Customer123@', role: 'customer' }
+        ];
+
+        function getStoredUsers() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(USERS_KEY));
+                if (Array.isArray(saved) && saved.length) {
+                    return saved;
+                }
+            } catch (error) {
+                console.warn('Could not read saved users:', error);
+            }
+            localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
+            return defaultUsers;
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        }
 
         let activeRole = 'admin';
+        let activeMode = 'login';
 
         roleButtons.forEach((button) => {
             button.addEventListener('click', () => {
@@ -451,21 +525,85 @@
             });
         });
 
-        passwordForm.addEventListener('submit', (event) => {
+        authToggleButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                activeMode = button.dataset.mode;
+                authToggleButtons.forEach((item) => item.classList.toggle('active', item === button));
+
+                const isLogin = activeMode === 'login';
+                loginForm.hidden = !isLogin;
+                signupForm.hidden = isLogin;
+                errorMessage.hidden = true;
+                signupMessage.hidden = true;
+            });
+        });
+
+        loginForm.addEventListener('submit', (event) => {
             event.preventDefault();
 
             const enteredEmail = emailInput.value.trim().toLowerCase();
             const enteredPassword = passwordInput.value;
+            const users = getStoredUsers();
+            const matchedUser = users.find((user) => user.email.toLowerCase() === enteredEmail && user.password === enteredPassword);
 
-            const account = activeRole === 'admin' ? adminAccount : customerAccount;
-
-            if (enteredEmail === account.email && enteredPassword === account.password) {
-                window.location.href = account.redirect;
+            if (!matchedUser) {
+                errorMessage.hidden = false;
+                passwordInput.select();
                 return;
             }
 
-            errorMessage.hidden = false;
-            passwordInput.select();
+            const redirect = matchedUser.role === 'admin' ? 'portfolio.html?role=admin' : 'portfolio.html?role=customer';
+            window.location.href = redirect;
+        });
+
+        signupForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const name = signupNameInput.value.trim();
+            const email = signupEmailInput.value.trim().toLowerCase();
+            const password = signupPasswordInput.value;
+            const confirmPassword = signupConfirmInput.value;
+            const users = getStoredUsers();
+
+            if (!name || !email || !password) {
+                signupMessage.textContent = 'Please fill in all fields.';
+                signupMessage.hidden = false;
+                return;
+            }
+
+            if (password.length < 6) {
+                signupMessage.textContent = 'Password must be at least 6 characters long.';
+                signupMessage.hidden = false;
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                signupMessage.textContent = 'Passwords do not match.';
+                signupMessage.hidden = false;
+                return;
+            }
+
+            const emailExists = users.some((user) => user.email.toLowerCase() === email);
+            if (emailExists) {
+                signupMessage.textContent = 'This email already exists. Please use a different one or log in.';
+                signupMessage.hidden = false;
+                return;
+            }
+
+            users.push({ name, email, password, role: 'customer' });
+            saveUsers(users);
+
+            signupMessage.textContent = 'Account created successfully! You can now log in as a customer.';
+            signupMessage.style.color = '#d8b878';
+            signupMessage.hidden = false;
+
+            signupForm.reset();
+            authToggleButtons[0].click();
+            emailInput.value = email;
+            passwordInput.value = password;
+            activeRole = 'customer';
+            roleButtons.forEach((item) => item.classList.toggle('active', item.dataset.role === 'customer'));
+            accessMessage.textContent = 'Customer access gives you the storefront and bag experience.';
         });
     </script>
 </body>
